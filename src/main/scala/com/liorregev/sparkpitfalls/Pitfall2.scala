@@ -1,7 +1,5 @@
 package com.liorregev.sparkpitfalls
 
-import org.apache.spark.sql.internal.SQLConf.SHUFFLE_PARTITIONS
-
 import scala.util.Random
 
 object Pitfall2 extends Pitfall {
@@ -17,7 +15,6 @@ object Pitfall2 extends Pitfall {
   val skewedData = (0 until 2*N)
     .map(_ => TestResult(0, Random.nextInt(100)))
 
-  spark.conf.set(SHUFFLE_PARTITIONS.key, 50)
   val _ = spark.createDataset(data ++ skewedData)
     .groupByKey(_.studentId)
     .mapGroups {
