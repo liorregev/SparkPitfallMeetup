@@ -1,7 +1,5 @@
 package com.liorregev.sparkpitfalls
 
-import scala.util.Random
-
 object Pitfall1 extends Pitfall {
   import spark.implicits._
 
@@ -10,9 +8,9 @@ object Pitfall1 extends Pitfall {
   final case class AverageTask(data: Seq[Int])
 
   val tasks = Seq(
-    SummationTask((0 until 100).map(_ => Random.nextInt(10))),
-    MultiplicationTask((0 until 100).map(_ => Random.nextInt(10))),
-    AverageTask((0 until 100).map(_ => Random.nextInt(10)))
+    SummationTask(0 until 100),
+    MultiplicationTask(0 until 100),
+    AverageTask(0 until 100)
   )
 
   spark.createDataset(tasks)
