@@ -18,24 +18,10 @@ scalacOptions ++= Seq(
   "-Ywarn-unused"
 )
 
-wartremoverErrors ++= Seq(
-  Wart.StringPlusAny, Wart.FinalCaseClass, Wart.JavaConversions, Wart.Null, Wart.Product, Wart.Serializable,
-  Wart.LeakingSealed, Wart.While, Wart.Return, Wart.ExplicitImplicitTypes, Wart.Enumeration, Wart.FinalVal,
-  Wart.TryPartial, Wart.TraversableOps, Wart.OptionPartial, Wart.ArrayEquals, ContribWart.SomeApply/*, TODO:
-    ContribWart.ExposedTuples, ContribWart.OldTime */
-)
-
-wartremoverWarnings ++= wartremover.Warts.allBut(
-  Wart.Nothing, Wart.DefaultArguments, Wart.Throw, Wart.MutableDataStructures, Wart.NonUnitStatements, Wart.Overloading,
-  Wart.Option2Iterable, Wart.ImplicitConversion, Wart.ImplicitParameter, Wart.Recursion,
-  Wart.Any, Wart.Equals, // Too many warnings because of spark's Row
-  Wart.AsInstanceOf // Too many warnings because of bad DI practices
-)
-
 libraryDependencies ++= Seq(
   // The following dependencies are provided by EMR. When upgrading an EMR version, upgrade them too.
-  "org.apache.spark"    %% "spark-core"                   % "2.3.0"              % "provided,test",
-  "org.apache.spark"    %% "spark-sql"                    % "2.3.0"              % "provided,test",
-  "org.apache.spark"    %% "spark-hive"                   % "2.3.0"              % "provided,test",
-  "org.apache.spark"    %% "spark-catalyst"               % "2.3.0"              % "provided,test"
+  "org.apache.spark"    %% "spark-core"                   % "2.3.0",
+  "org.apache.spark"    %% "spark-sql"                    % "2.3.0",
+  "org.apache.spark"    %% "spark-hive"                   % "2.3.0",
+  "org.apache.spark"    %% "spark-catalyst"               % "2.3.0"
 )
