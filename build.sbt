@@ -19,9 +19,12 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  // The following dependencies are provided by EMR. When upgrading an EMR version, upgrade them too.
   "org.apache.spark"    %% "spark-core"                   % "2.3.0",
   "org.apache.spark"    %% "spark-sql"                    % "2.3.0",
   "org.apache.spark"    %% "spark-hive"                   % "2.3.0",
-  "org.apache.spark"    %% "spark-catalyst"               % "2.3.0"
+  "org.apache.spark"    %% "spark-catalyst"               % "2.3.0",
+  "org.apache.spark"    %% "spark-core"                   % "2.3.0" classifier "tests",
+  "org.apache.spark"    %% "spark-sql"                    % "2.3.0" classifier "tests",
+  "org.apache.spark"    %% "spark-catalyst"               % "2.3.0" classifier "tests",
+  "org.scalatest"       %% "scalatest"                    % "3.0.3"
 )
