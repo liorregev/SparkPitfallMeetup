@@ -8,7 +8,7 @@ import org.scalatest.{BeforeAndAfterEachTestData, Matchers, TestData}
 import scala.util.Random
 
 trait SparkDriverFunSuite extends SharedSQLContext with Matchers with BeforeAndAfterEachTestData {
-  protected val callsiteContext = new CallsiteContext()
+  protected var callsiteContext = CallsiteContext(spark.sparkContext, this.getClass.getName, Nil)
   private var _randomSeed: Long = Random.nextLong()
   protected def randomSeed: Long = _randomSeed
   protected val randomGenerator: Random = new Random(randomSeed)
@@ -17,7 +17,7 @@ trait SparkDriverFunSuite extends SharedSQLContext with Matchers with BeforeAndA
   override protected def beforeEach(testData: TestData): Unit = {
     _randomSeed = Random.nextLong()
     randomGenerator.setSeed(_randomSeed)
-    callsiteContext.initContext(spark.sparkContext, s"${this.getClass.getName}(${testData.name})", "")
+    callsiteContext = CallsiteContext(spark.sparkContext, s"${this.getClass.getName}(${testData.name})", Nil)
   }
 
   final def randomString(length: Int): String = randomGenerator.alphanumeric.take(length).mkString
