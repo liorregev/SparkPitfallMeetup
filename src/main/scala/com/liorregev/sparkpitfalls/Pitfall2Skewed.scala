@@ -2,7 +2,7 @@ package com.liorregev.sparkpitfalls
 
 import scala.util.Random
 
-object Pitfall2 extends Pitfall {
+object Pitfall2Skewed extends Pitfall {
   import spark.implicits._
 
   final case class TestResult(studentId: Int, result: Int)

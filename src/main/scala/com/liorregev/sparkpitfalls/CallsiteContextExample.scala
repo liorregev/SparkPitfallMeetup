@@ -1,6 +1,6 @@
 package com.liorregev.sparkpitfalls
 
-object Pitfall6 extends Pitfall {
+object CallsiteContextExample extends Pitfall {
   import spark.implicits._
   val callsiteContext = CallsiteContext(spark.sparkContext, "Pitfall6", Nil)
   callsiteContext.enrichContext("enrich1") {
