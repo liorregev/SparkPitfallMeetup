@@ -1,5 +1,6 @@
 package com.liorregev.sparkpitfalls
 
+import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.{functions => F}
 
@@ -7,6 +8,9 @@ object Pitfall3 extends Pitfall {
   import spark.implicits._
 
   val N = 10000
+
+  type PartitionIndex = Int
+  type PartitionLastValue = Int
 
   val ds = spark.createDataset(0 to N).repartition(100).sort($"value" asc)
   spark.sparkContext.setJobDescription("Calculate using window")
@@ -17,7 +21,7 @@ object Pitfall3 extends Pitfall {
     .flatten
   spark.sparkContext.setJobDescription("Calculate using RDD")
   val differencesRdd = {
-    val lastValues = spark.sparkContext.broadcast(
+    val lastValues: Broadcast[Map[PartitionIndex, PartitionLastValue]] = spark.sparkContext.broadcast(
       ds.rdd
         .mapPartitionsWithIndex((idx, it) => {
           Seq(it.foldLeft(idx -> 0) {
