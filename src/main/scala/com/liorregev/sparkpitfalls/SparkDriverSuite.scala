@@ -2,12 +2,14 @@ package com.liorregev.sparkpitfalls
 
 import java.sql.Timestamp
 
-import org.apache.spark.sql.test.SharedSQLContext
-import org.scalatest.{BeforeAndAfterEachTestData, Matchers, TestData}
+import org.apache.spark.sql.test.SharedSparkSession
+import org.scalatest.{BeforeAndAfterEachTestData, Matchers, Suite, TestData}
 
 import scala.util.Random
 
-trait SparkDriverFunSuite extends SharedSQLContext with Matchers with BeforeAndAfterEachTestData {
+trait SparkDriverSuite extends SharedSparkSession with Matchers with BeforeAndAfterEachTestData {
+  this: Suite =>
+
   protected var callsiteContext = CallsiteContext(spark.sparkContext, this.getClass.getName, Nil)
   private var _randomSeed: Long = Random.nextLong()
   protected def randomSeed: Long = _randomSeed
